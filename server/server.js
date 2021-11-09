@@ -12,43 +12,43 @@ app.use(cors());
 app.use(morgan('dev'));
 
 function authenticator(req, res, next) {
-  const { authorization } = req.headers;
-  if (authorization === token) {
-    next();
-  } else {
-    res.status(403).json({ error: "User must be logged in to do that." });
-  }
+	const { authorization } = req.headers;
+	if (authorization === token) {
+		next();
+	} else {
+		res.status(403).json({ error: "User must be logged in to do that." });
+	}
 }
 
 app.post("/api/login", (req, res) => {
-  const { username, password } = req.body;
-  if (username === "lambda" && password === "school") {
-    req.loggedIn = true;
-    res.status(200).json({
-      username: "lambdaSchool",
-      role: "editor",
-      token: token
-    });
-  } else {
-    res
-      .status(403)
-      .json({ error: "Username or Password incorrect. Please see Readme" });
-  }
+	const { username, password } = req.body;
+	if (username === "lambda" && password === "school") {
+		req.loggedIn = true;
+		res.status(200).json({
+			username: "lambdaSchool",
+			role: "editor",
+			token: token
+		});
+	} else {
+		res
+			.status(403)
+			.json({ error: "Username or Password incorrect. Please see Readme" });
+	}
 });
 
 app.post("/api/logout", (req, res) => {
-  //remove token from database
-  res.status(200).json({
-    payload: token
-  });
+	//remove token from database
+	res.status(200).json({
+		payload: token
+	});
 });
 
 app.get("/api/data", authenticator, (req, res) => {
-  setTimeout(() => {
-    res.send(data);
-  }, 1000);
+	setTimeout(() => {
+		res.send(data);
+	}, 1000);
 });
 
 app.listen(port, () => {
-  console.log(`server listening on port ${port}`);
+	console.log(`server listening on port ${port}`);
 });

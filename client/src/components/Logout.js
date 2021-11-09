@@ -4,21 +4,21 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import axiosWithAuth from "../utils/axiosWithAuth";
 
-const Logout = (props)=> {
-    const {push} = useHistory();
+const Logout = (props) => {
+	const { push } = useHistory();
 
-    useEffect(()=> {
-        const token = localStorage.getItem("token");
+	useEffect(() => {
+		const token = localStorage.getItem("token");
 
-        axiosWithAuth()
-            .post('/logout')
-            .then(resp => {
-                localStorage.removeItem('token');
-                push('/login');
-            });
-    }, []);
-    
-    return(<div></div>);
+		axiosWithAuth()
+			.post('/logout')
+			.then(resp => {
+				localStorage.removeItem('token');
+				push('/login');
+			});
+	}, []);
+
+	return (<div></div>);
 }
 
 export default Logout;
